@@ -4,14 +4,61 @@ import Header from "./Header"
 import Footer from "./Footer"
 import WeekDays from "./WeekDays"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 
 export default function Habits({userInfo}){
     const [creatingHabit, setCreatingHabit] = useState(false)
+    //name of the habit being created
+    const [habitName, setHabitName] = useState('')
+    //the days user must select to create habit
+    const [selectedDays, setSelectedDays] = useState([])
+    
     const [habitsList, setHabitsList] = useState([])
+    const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 
-    console.log(habitsList.length)
+    // console.log(habitsList.length)
+    // console.log(selectedDays)
+    let teste = 0
+
+    function createHabit(){
+        let daysId = []
+        for(let i in weekdays){
+            if(selectedDays.includes(weekdays[i])){
+                daysId.push(Number(i)+1)
+            }
+        }
+
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{
+            name:habitName,
+            days:daysId
+        },{
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then(res =>{
+            console.log(res)
+            setHabitName('')
+            setSelectedDays([])
+        })
+        .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        //listing habits
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',{
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+            setHabitsList(res.data)
+        })
+        .catch(err => console.log(err))
+    },[teste])
 
     return(
         <>
@@ -25,20 +72,30 @@ export default function Habits({userInfo}){
                 </CreateHabit>
                 {creatingHabit && 
                     <CreatingHabit>
-                        <input placeholder="nome do hábito"></input>
-                        <WeekDays creatingHabit={creatingHabit}/>
+                        <input value={habitName} required onChange={e => setHabitName(e.target.value)} placeholder="nome do hábito"></input>
+                        <WeekDays 
+                            isDisabled={false}
+                            selectedDays={selectedDays}
+                            setSelectedDays={setSelectedDays}
+                            weekdays={weekdays}
+                        />
 
                         <CancelSave>
                             <button onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
-                            <button onClick={() => setCreatingHabit(false)} className="save">Salvar</button>
+                            <button onClick={createHabit} className="save">Salvar</button>
                         </CancelSave>
                     </CreatingHabit>
                 }
-                <CreatedHabit>
-                    <ion-icon name="trash-outline"></ion-icon>
-                    <p>Ler um capitulo de livro</p>
-                    <WeekDays creatingHabit={false}/>
-                </CreatedHabit>
+
+                {habitsList.length > 0 &&
+                    habitsList.map(habit => (
+                        <CreatedHabit key={habit.id}>
+                            <ion-icon name="trash-outline"></ion-icon>
+                            <p>{habit.name}</p>
+                            <WeekDays weekdays={weekdays} selectedDays={habit.days} isDisabled={true}/>
+                        </CreatedHabit>
+                    ))
+                }
                 {habitsList.length === 0 && 
                     <p>
                     Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!

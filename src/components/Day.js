@@ -1,25 +1,25 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function Day({day, isSelected, selectedDays, setSelectedDays}){
+export default function Day({isDisabled, day, isSelected, selectedDays, setSelectedDays}){
     const [selected, setSelected] = useState(isSelected)
 
-
     return(
-        <DayContainer 
+        <DayContainer
+            disabled={isDisabled} 
             onClick={() => {
                 setSelected(!selected)
                 let newState = []
                 //In case we want to remove the selected day
                 if(selectedDays.includes(day)){
-                    console.log('remoção')
+                    // console.log('remoção')
                     newState = selectedDays
                     let i = selectedDays.indexOf(day)
                     newState.splice(i,1)
                 }
                 //In case we want to add the selected day
                 else{
-                    console.log('adição')
+                    // console.log('adição')
                     newState = [...selectedDays, day]
                 }
                 setSelectedDays([...newState])

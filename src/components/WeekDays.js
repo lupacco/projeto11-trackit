@@ -3,15 +3,13 @@ import styled from "styled-components"
 
 import Day from "./Day"
 
-export default function WeekDays(creatingHabit){
-    const [selectedDays, setSelectedDays] = useState([])
-    const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
-
+export default function WeekDays({isDisabled, weekdays, selectedDays, setSelectedDays}){
 
     return(
         <WeekDaysContainer>
             {weekdays.map((day) => (
                 <Day
+                    isDisabled={isDisabled}
                     key={day}
                     day={day}
                     isSelected={selectedDays.includes(day) ? (true) : (false)}
