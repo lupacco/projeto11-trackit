@@ -22,6 +22,14 @@ export default function Habits({userInfo}){
     // console.log(selectedDays)
     let teste = 0
 
+    function transformIdToDay(daysId){
+        let daysNames = []
+        for(let i in daysId){
+            daysNames.push(weekdays[daysId[i]-1])
+        }
+        return daysNames
+    }
+
     function createHabit(){
         let daysId = []
         for(let i in weekdays){
@@ -92,7 +100,7 @@ export default function Habits({userInfo}){
                         <CreatedHabit key={habit.id}>
                             <ion-icon name="trash-outline"></ion-icon>
                             <p>{habit.name}</p>
-                            <WeekDays weekdays={weekdays} selectedDays={habit.days} isDisabled={true}/>
+                            <WeekDays weekdays={weekdays} selectedDays={transformIdToDay(habit.days)} isDisabled={true}/>
                         </CreatedHabit>
                     ))
                 }
