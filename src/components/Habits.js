@@ -49,7 +49,9 @@ export default function Habits({userInfo}){
         .then(res =>{
             console.log(res)
             setHabitName('')
-            setSelectedDays([])
+            // setSelectedDays([])
+            teste += 1
+            setCreatingHabit(false)
         })
         .catch(err => console.log(err))
     }
@@ -118,7 +120,7 @@ export default function Habits({userInfo}){
 const HabitsContainer = styled.main`
     background-color: #E5E5E5;
     height: 100vh;
-    padding: 100px 16px 0 16px ;
+    padding: 100px 16px 0px 16px ;
 
     >p{
         margin-top: 32px;
