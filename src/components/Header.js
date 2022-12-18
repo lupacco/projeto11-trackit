@@ -1,11 +1,10 @@
 import styled from "styled-components"
-import perfil from "../assets/perfil2.png"
 
-export default function Header(){
+export default function Header({picture}){
     return(
         <HeaderContainer>
             <h1>TrackIt</h1>
-            <img alt="" src={perfil}></img>
+            <img alt="" src={picture}></img>
         </HeaderContainer>
     )
 }

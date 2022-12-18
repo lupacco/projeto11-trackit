@@ -5,7 +5,7 @@ import axios from "axios"
 import { useState } from "react"
 
 
-export default function Login(){
+export default function Login({setUserInfo}){
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -18,13 +18,17 @@ export default function Login(){
             password: password
         })
         .then(res => {
-            console.log(res)
+            console.log(res.data)
+            setUserInfo(res.data)
             setEmail('')
             setPassword('')
             alert('Login realizado com sucesso!')
             navigate('/habitos')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            alert('Email ou senha inválidos')
+        })
     }
 
     function logs(event){
@@ -38,9 +42,9 @@ export default function Login(){
             <img alt="" src={logoTrackIt}></img>
             <h1>TrackIt</h1>
 
-            <form>
-                <input placeholder="email"></input>
-                <input placeholder="senha"></input>
+            <form onSubmit={login}>
+                <input required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
                 <button type="submit">Entrar</button>
             </form>
             <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>

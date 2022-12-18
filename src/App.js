@@ -7,18 +7,21 @@ import SignUp from "./components/SignUp";
 import Habits from "./components/Habits"
 import Today from "./components/Today";
 import History from "./components/History";
+import { useState } from "react";
 
 function App() {
+  const [userInfo, setUserInfo] = useState({})
+
   return (
     <BrowserRouter>
       <GlobalStyle/>
 
       <Routes>
-        <Route path="/" element={<Login/>}/>
+        <Route path="/" element={<Login setUserInfo={setUserInfo}/>}/>
         <Route path="/cadastro" element={<SignUp/>}/>
-        <Route path="/habitos" element={<Habits/>}/>
-        <Route path="/hoje" element={<Today/>}/>
-        <Route path="/historico" element={<History/>}/>
+        <Route path="/habitos" element={<Habits userInfo={userInfo}/>}/>
+        <Route path="/hoje" element={<Today userInfo={userInfo}/>}/>
+        <Route path="/historico" element={<History userInfo={userInfo}/>}/>
       </Routes>
       
     </BrowserRouter>

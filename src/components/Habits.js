@@ -7,14 +7,15 @@ import WeekDays from "./WeekDays"
 import { useState } from "react"
 
 
-export default function Habits(){
+export default function Habits({userInfo}){
     const [creatingHabit, setCreatingHabit] = useState(false)
+    const [habitsList, setHabitsList] = useState([])
 
-
+    console.log(habitsList.length)
 
     return(
         <>
-            <Header/>
+            <Header picture={userInfo.image}/>
             <HabitsContainer>
                 <CreateHabit>
                     <p>Meus hábitos</p>
@@ -25,7 +26,7 @@ export default function Habits(){
                 {creatingHabit && 
                     <CreatingHabit>
                         <input placeholder="nome do hábito"></input>
-                        <WeekDays/>
+                        <WeekDays creatingHabit={creatingHabit}/>
 
                         <CancelSave>
                             <button onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
@@ -36,12 +37,13 @@ export default function Habits(){
                 <CreatedHabit>
                     <ion-icon name="trash-outline"></ion-icon>
                     <p>Ler um capitulo de livro</p>
-                    <WeekDays/>
+                    <WeekDays creatingHabit={false}/>
                 </CreatedHabit>
-
-                <p>
-                Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-                </p>
+                {habitsList.length === 0 && 
+                    <p>
+                    Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+                    </p>
+                }
             </HabitsContainer>
             <Footer/>
         </>

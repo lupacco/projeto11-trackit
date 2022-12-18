@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import Day from "./Day"
 
-export default function WeekDays(){
+export default function WeekDays(creatingHabit){
     const [selectedDays, setSelectedDays] = useState([])
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 
