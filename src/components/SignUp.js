@@ -1,19 +1,56 @@
 import styled from "styled-components"
 import logoTrackIt from "../assets/trackitlogo.png"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import { useState } from "react"
+import axios from "axios"
 
-
+//https://pbs.twimg.com/media/EWkT3JmXQAY6onx.png
 export default function Login(){
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] =useState('')
+    const [name, setName] = useState('')
+    const [picture, setPicture] = useState('')
+
+    function signUp(event){
+        event.preventDefault()
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', {
+            email: email,
+            name: name,
+            image: picture,
+            password: password
+        })
+        .then(res => {
+            console.log(res)
+            setEmail('')
+            setPassword('')
+            setName('')
+            setPicture('')
+            alert('Cadastro realizado com sucesso!')
+            navigate('/login')
+        })
+        .catch(err => console.log(err))
+    }
+
+    function logs(event){
+        event.preventDefault()
+        console.log(email)
+        console.log(password)
+        console.log(name)
+        console.log(picture)
+    }
+
     return(
         <LoginScreenContainer>
             <img alt="" src={logoTrackIt}></img>
             <h1>TrackIt</h1>
 
-            <form>
-                <input placeholder="email"></input>
-                <input placeholder="senha"></input>
-                <input placeholder="nome"></input>
-                <input placeholder="foto"></input>
+            <form onSubmit={signUp}>
+                <input required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
+                <input required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
+                <input required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
                 <button type="submit">Cadastrar</button>
             </form>
             <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>

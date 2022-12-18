@@ -2,34 +2,15 @@ import styled from "styled-components"
 //Components
 import Header from "./Header"
 import Footer from "./Footer"
+import WeekDays from "./WeekDays"
+
 import { useState } from "react"
+
 
 export default function Habits(){
     const [creatingHabit, setCreatingHabit] = useState(false)
-    const [selectedDays, setSelectedDays] = useState([])
 
-    const weekdays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-    function selectDay(event, index){
-        let newSelectedDays = []
-        console.log('selectedDays:')
-        console.log(selectedDays)
-        console.log(!selectedDays.includes(index))
-        if(!selectedDays.includes(index)){
-            newSelectedDays = [...selectedDays, index]
-            setSelectedDays(newSelectedDays)
-        } else{
-            for(let i in selectedDays){
-                console.log(selectedDays)
-                if(!selectedDays[i]===index){
-                    newSelectedDays.push(selectedDays[i])
-                }
-            }
-            setSelectedDays(newSelectedDays)
-        }
-        console.log('newSelectedDays:')
-        console.log(newSelectedDays)
-        console.log(index)
-    }
+
 
     return(
         <>
@@ -44,11 +25,8 @@ export default function Habits(){
                 {creatingHabit && 
                     <CreatingHabit>
                         <input placeholder="nome do hábito"></input>
-                        <WeekDays>
-                            {weekdays.map((day, index) => (
-                                <Day className={selectedDays.includes(index) ? ('selecionado') : ('')} isSelected={selectedDays.includes(index) ? (true) : (false)} key={index} onClick={e => selectDay(e,index)}>{day}</Day>
-                            ))}
-                        </WeekDays>
+                        <WeekDays/>
+
                         <CancelSave>
                             <button onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
                             <button onClick={() => setCreatingHabit(false)} className="save">Salvar</button>
@@ -58,11 +36,7 @@ export default function Habits(){
                 <CreatedHabit>
                     <ion-icon name="trash-outline"></ion-icon>
                     <p>Ler um capitulo de livro</p>
-                    <WeekDays>
-                        {weekdays.map((day, index) => (
-                            <Day className={selectedDays.includes(index) ? ('selecionado') : ('')} isSelected={selectedDays.includes(index) ? (true) : (false)} key={index} onClick={e => selectDay(e,index)}>{day}</Day>
-                        ))}
-                    </WeekDays>
+                    <WeekDays/>
                 </CreatedHabit>
 
                 <p>
@@ -124,20 +98,6 @@ const CreatingHabit = styled.div`
             color: #DBDBDB;
         }
     }
-`
-const WeekDays = styled.div`
-    display: flex;
-    margin: 16px 0;
-`
-const Day = styled.button`
-    width: 30px;
-    height: 30px;
-    background-color: ${props => props.isSelected ? '#CFCFCF' : '#FFFFFF'};
-    border: solid 1px ${props => props.isSelected ? '#CFCFCF' : '#D4D4D4'};
-    color: ${props => props.isSelected ? '#FFFFFF' : '#DBDBDB'};
-    border-radius: 6px;
-    margin-right: 4px;
-    font-size: 20px;
 `
 const CancelSave = styled.div`
     display: flex;

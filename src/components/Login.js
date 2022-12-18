@@ -1,9 +1,38 @@
 import styled from "styled-components"
 import logoTrackIt from "../assets/trackitlogo.png"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import axios from "axios"
+import { useState } from "react"
 
 
 export default function Login(){
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] =useState('')
+
+    function login(event){
+        event.preventDefault()
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', {
+            email: email,
+            password: password
+        })
+        .then(res => {
+            console.log(res)
+            setEmail('')
+            setPassword('')
+            alert('Login realizado com sucesso!')
+            navigate('/habitos')
+        })
+        .catch(err => console.log(err))
+    }
+
+    function logs(event){
+        event.preventDefault()
+        console.log(email)
+        console.log(password)
+    }
+
     return(
         <LoginScreenContainer>
             <img alt="" src={logoTrackIt}></img>
