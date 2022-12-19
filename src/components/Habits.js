@@ -18,9 +18,8 @@ export default function Habits({userInfo}){
     const [habitsList, setHabitsList] = useState([])
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 
-    // console.log(habitsList.length)
-    // console.log(selectedDays)
-    let teste = 0
+    //operations released in section
+    const [operations, setOperations] = useState(0)
 
     function transformIdToDay(daysId){
         let daysNames = []
@@ -50,8 +49,21 @@ export default function Habits({userInfo}){
             console.log(res)
             setHabitName('')
             // setSelectedDays([])
-            teste += 1
+            setOperations(operations+1)
             setCreatingHabit(false)
+        })
+        .catch(err => console.log(err))
+    }
+
+    function deleteHabit(habitId){
+        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitId}`,{
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then(res => {
+            console.log(res)
+            setOperations(operations+1)
         })
         .catch(err => console.log(err))
     }
@@ -68,7 +80,7 @@ export default function Habits({userInfo}){
             setHabitsList(res.data)
         })
         .catch(err => console.log(err))
-    },[teste])
+    },[operations])
 
     return(
         <>
@@ -100,7 +112,7 @@ export default function Habits({userInfo}){
                 {habitsList.length > 0 &&
                     habitsList.map(habit => (
                         <CreatedHabit key={habit.id}>
-                            <ion-icon name="trash-outline"></ion-icon>
+                            <ion-icon onClick={() => deleteHabit(habit.id)} name="trash-outline"></ion-icon>
                             <p>{habit.name}</p>
                             <WeekDays weekdays={weekdays} selectedDays={transformIdToDay(habit.days)} isDisabled={true}/>
                         </CreatedHabit>
