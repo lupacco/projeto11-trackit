@@ -120,13 +120,15 @@ export default function Habits({userInfo}){
 const HabitsContainer = styled.main`
     background-color: #E5E5E5;
     height: 100vh;
-    padding: 100px 16px 0px 16px ;
-
+    padding: 100px 16px 64px 16px ;
+    margin-bottom: 5vh;
+    overflow-y: scroll;
     >p{
         margin-top: 32px;
         font-size: 18px;
         color: #666666;
     }
+    
 `
 const CreateHabit = styled.div`
     display: flex;
@@ -156,6 +158,7 @@ const CreatingHabit = styled.div`
     background-color: #FFFFFF;
     border-radius: 6px;
     padding: 16px;
+    margin: auto;
     >input{
         width: 303px;
         height: 45px;
@@ -189,7 +192,7 @@ const CancelSave = styled.div`
     }
 `
 const CreatedHabit = styled.div`
-    margin: 16px 0;
+    margin: 16px auto;
     width:340px;
     height:100px;
     background: #FFFFFF;
@@ -206,4 +209,5 @@ const CreatedHabit = styled.div`
         right: 16px;
         color: #666666;
     }
+    
 `

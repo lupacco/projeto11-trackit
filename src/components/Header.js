@@ -20,6 +20,7 @@ const HeaderContainer = styled.header`
     justify-content: space-between;
     padding: 0 16px;
     box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
     >h1{
         font-family: 'Playball';
         font-size: 40px;
