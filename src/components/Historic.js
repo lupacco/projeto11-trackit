@@ -2,22 +2,22 @@ import styled from "styled-components"
 import Footer from "./Footer"
 import Header from "./Header"
 
-export default function History(){
+export default function Historic({userInfo}){
     return(
         <>
-            <Header/>
-            <HistoryContainer>
+            <Header picture={userInfo.image}/>
+            <HistoricContainer>
                 <div>
                     <h1>Histórico</h1>
                     <p>Em breve vocÊ poderá consultar seu histórico</p>
                 </div>
-            </HistoryContainer>
+            </HistoricContainer>
             <Footer/>
         </>
     )
 }
 
-const HistoryContainer = styled.main`
+const HistoricContainer = styled.main`
     background-color: #E5E5E5;
     height: 100vh;
     padding: 100px 16px 0 16px ;

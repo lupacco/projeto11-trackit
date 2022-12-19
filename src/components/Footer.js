@@ -4,11 +4,13 @@ import {Link} from "react-router-dom"
 export default function Footer(){
     return(
         <FooterContainer>
-            <StyledLink>Hábitos</StyledLink>
+            <StyledLink to="/habitos">Hábitos</StyledLink>
             <div>
-                <p>Hoje</p>
+                <StyledLink to="/hoje">
+                    <p>Hoje</p>
+                </StyledLink>
             </div>
-            <StyledLink>Histórico</StyledLink>
+            <StyledLink to="/historico">Histórico</StyledLink>
         </FooterContainer>
     )
 }
@@ -34,9 +36,6 @@ const FooterContainer = styled.footer`
         align-items: center;
         justify-content: center;
         border-radius: 100%;
-        >p{
-            color: #FFFFFF;
-        }
     }
 `
 
@@ -44,5 +43,8 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: #52B6FF;
     font-size: 18px;
+    >p{
+            color: #FFFFFF;
+    }
 
 `

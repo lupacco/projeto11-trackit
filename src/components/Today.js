@@ -1,11 +1,29 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "./Footer";
 import Header from "./Header";
 
-export default function Today(){
+export default function Today({userInfo}){
+    const [todaysHabits, setTodaysHabits] = useState([])
+
+    useEffect(() => {
+        axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',{
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+            console.log(userInfo)
+            setTodaysHabits(res.data)
+        })
+        .catch(err => console.log(err))
+    },[])
+
     return(
         <>
-            <Header/>
+            <Header picture={userInfo.image}/>
             <Container>
                 <div>
                     <h1>Segunda, 17/05</h1>

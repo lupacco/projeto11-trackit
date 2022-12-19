@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Habits from "./components/Habits"
 import Today from "./components/Today";
-import History from "./components/History";
+import Historic from "./components/Historic";
 import { useState } from "react";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
         <Route path="/cadastro" element={<SignUp/>}/>
         <Route path="/habitos" element={<Habits userInfo={userInfo}/>}/>
         <Route path="/hoje" element={<Today userInfo={userInfo}/>}/>
-        <Route path="/historico" element={<History userInfo={userInfo}/>}/>
+        <Route path="/historico" element={<Historic userInfo={userInfo}/>}/>
       </Routes>
       
     </BrowserRouter>
