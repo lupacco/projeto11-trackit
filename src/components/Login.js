@@ -23,7 +23,7 @@ export default function Login({setUserInfo}){
             setEmail('')
             setPassword('')
             alert('Login realizado com sucesso!')
-            navigate('/habitos')
+            navigate('/hoje')
         })
         .catch(err => {
             console.log(err)

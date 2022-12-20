@@ -3,6 +3,7 @@ import styled from "styled-components"
 import Header from "./Header"
 import Footer from "./Footer"
 import WeekDays from "./WeekDays"
+import weekdays from "../weekdays"
 
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -16,7 +17,6 @@ export default function Habits({userInfo}){
     const [selectedDays, setSelectedDays] = useState([])
     
     const [habitsList, setHabitsList] = useState([])
-    const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
 
     //operations released in section
     const [operations, setOperations] = useState(0)

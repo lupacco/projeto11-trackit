@@ -4,8 +4,47 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import Header from "./Header";
 
+import weekdays from "../weekdays";
+
+import dayjs from 'dayjs'
+import weekday from 'dayjs/plugin/weekday'
+
 export default function Today({userInfo}){
     const [todaysHabits, setTodaysHabits] = useState([])
+
+    let day = dayjs().day()
+    let dayName = weekdays[day]
+    let dayDate = dayjs().format('DD/MM')
+    
+    console.log('oi')
+
+    function checkUncheck(habit){
+        console.log(habit.id)
+        //check the habit
+        if(!habit.done){
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{
+                headers:{
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+        } 
+        //uncheck the habit
+        else{
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,{
+                headers:{
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+        }
+    }
 
     useEffect(() => {
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',{
@@ -14,32 +53,40 @@ export default function Today({userInfo}){
             }
         })
         .then(res => {
+            console.log('deu bom')
             console.log(res.data)
-            console.log(userInfo)
+            // console.log(userInfo)
             setTodaysHabits(res.data)
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log('deu ruim'))
     },[])
+    
 
     return(
         <>
             <Header picture={userInfo.image}/>
             <Container>
                 <div>
-                    <h1>Segunda, 17/05</h1>
+                    <h1>{dayName}, {dayDate}</h1>
                     <p>Nenhum hábito concluído ainda</p>
                 </div>
-
-                <Task>
-                    <div>
-                        <h2>Ler 1 capitulo de livro</h2>
-                        <p>Sequência atual: 3 dias</p>
-                        <p>Seu recorde: 5 dias</p>
-                    </div>
-                    <Checkbox>
-                        <ion-icon name="checkmark-outline"></ion-icon>
-                    </Checkbox>
-                </Task>
+                {todaysHabits.length > 0 && 
+                    todaysHabits.map(habit => (
+                        <Task key={habit.id}>
+                            <div>
+                                <h2>{habit.name}</h2>
+                                <p>Sequência atual: {habit.currentSequence} dias</p>
+                                <p>Seu recorde: {habit.highestSequence} dias</p>
+                            </div>
+                            <Checkbox 
+                            onClick={() => checkUncheck(habit)}
+                            isDone={habit.done}
+                            >
+                                <ion-icon name="checkmark-outline"></ion-icon>
+                            </Checkbox>
+                        </Task>
+                    ))
+                }
             </Container>
             <Footer/>
         </>
@@ -91,7 +138,7 @@ const Task = styled.div`
 const Checkbox = styled.div`
     width: 69px;
     height: 69px;
-    background-color: #8FC549;
+    background-color: ${props => props.isDone ? ('#8FC549') : ('#EBEBEB')};
     display: flex;
     align-items: center;
     justify-content: center;

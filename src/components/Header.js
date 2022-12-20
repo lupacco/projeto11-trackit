@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Header({picture}){
     return(
         <HeaderContainer>
-            <h1>TrackIt</h1>
+            <h1>
+            <Link to ="/">
+                TrackIt
+            </Link>
+            </h1>
+                
             <img alt="" src={picture}></img>
         </HeaderContainer>
     )

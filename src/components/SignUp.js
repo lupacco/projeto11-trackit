@@ -30,7 +30,7 @@ export default function Login(){
             alert('Cadastro realizado com sucesso!')
             navigate('/login')
         })
-        .catch(err => console.log(err))
+        .catch(err => alert(err))
     }
 
     function logs(event){
