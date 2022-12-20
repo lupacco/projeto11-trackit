@@ -42,7 +42,7 @@ export default function Login({setUserInfo}){
             <form onSubmit={login}>
                 <input disabled={inputsDisabled} type="email" data-test="email-input" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
                 <input disabled={inputsDisabled} data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
-                <button data-test="login-btn" type="submit">Entrar</button>
+                <button disabled={inputsDisabled} data-test="login-btn" type="submit">Entrar</button>
             </form>
             <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
         </LoginScreenContainer>

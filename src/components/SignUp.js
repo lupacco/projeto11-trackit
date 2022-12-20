@@ -48,7 +48,7 @@ export default function Login(){
                 <input disabled={inputsDisabled} data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
                 <input disabled={inputsDisabled} data-test="user-name-input" required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
                 <input disabled={inputsDisabled} data-test="user-image-input" required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
-                <button data-test="signup-btn" type="submit">Cadastrar</button>
+                <button disabled={inputsDisabled} data-test="signup-btn" type="submit">Cadastrar</button>
             </form>
             <StyledLink data-test="login-link" to="/">Já tem uma conta? Faça login!</StyledLink>
         </LoginScreenContainer>
