@@ -12,9 +12,11 @@ export default function Login(){
     const [password, setPassword] =useState('')
     const [name, setName] = useState('')
     const [picture, setPicture] = useState('')
+    const [inputsDisabled, setInputsDisabled] = useState(false)
 
     function signUp(event){
         event.preventDefault()
+        setInputsDisabled(true)
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', {
             email: email,
             name: name,
@@ -29,7 +31,10 @@ export default function Login(){
             alert('Cadastro realizado com sucesso!')
             navigate('/login')
         })
-        .catch(err => alert(err))
+        .catch(err => {
+            alert(err)
+            setInputsDisabled(false)
+        })
     }
 
 
@@ -39,10 +44,10 @@ export default function Login(){
             <h1>TrackIt</h1>
 
             <form onSubmit={signUp}>
-                <input data-test="email-input" type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
-                <input data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
-                <input data-test="user-name-input" required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
-                <input data-test="user-image-input" required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
+                <input disabled={inputsDisabled} data-test="email-input" type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input disabled={inputsDisabled} data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
+                <input disabled={inputsDisabled} data-test="user-name-input" required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
+                <input disabled={inputsDisabled} data-test="user-image-input" required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
                 <button data-test="signup-btn" type="submit">Cadastrar</button>
             </form>
             <StyledLink data-test="login-link" to="/">Já tem uma conta? Faça login!</StyledLink>

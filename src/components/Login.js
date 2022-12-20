@@ -10,9 +10,11 @@ export default function Login({setUserInfo}){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] =useState('')
+    const [inputsDisabled, setInputsDisabled] = useState(false)
 
     function login(event){
         event.preventDefault()
+        setInputsDisabled(true)
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', {
             email: email,
             password: password
@@ -28,6 +30,7 @@ export default function Login({setUserInfo}){
         .catch(err => {
             console.log(err)
             alert('Email ou senha inválidos')
+            setInputsDisabled(false)
         })
     }
 
@@ -37,8 +40,8 @@ export default function Login({setUserInfo}){
             <h1>TrackIt</h1>
 
             <form onSubmit={login}>
-                <input type="email" data-test="email-input" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
-                <input data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
+                <input disabled={inputsDisabled} type="email" data-test="email-input" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input disabled={inputsDisabled} data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
                 <button data-test="login-btn" type="submit">Entrar</button>
             </form>
             <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
