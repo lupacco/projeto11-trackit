@@ -6,6 +6,7 @@ export default function Day({isDisabled, day, isSelected, selectedDays, setSelec
 
     return(
         <DayContainer
+            data-test="habit-day"
             disabled={isDisabled} 
             onClick={() => {
                 setSelected(!selected)

@@ -3,14 +3,14 @@ import {Link} from "react-router-dom"
 
 export default function Footer(){
     return(
-        <FooterContainer>
-            <StyledLink to="/habitos">Hábitos</StyledLink>
+        <FooterContainer data-test="menu">
+            <StyledLink data-test="habit-link" to="/habitos">Hábitos</StyledLink>
             <div>
-                <StyledLink to="/hoje">
+                <StyledLink data-test="today-link" to="/hoje">
                     <p>Hoje</p>
                 </StyledLink>
             </div>
-            <StyledLink to="/historico">Histórico</StyledLink>
+            <StyledLink data-test="history" to="/historico">Histórico</StyledLink>
         </FooterContainer>
     )
 }

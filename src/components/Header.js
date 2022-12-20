@@ -3,11 +3,9 @@ import styled from "styled-components"
 
 export default function Header({picture}){
     return(
-        <HeaderContainer>
+        <HeaderContainer data-test="header">
             <h1>
-            <Link to ="/">
                 TrackIt
-            </Link>
             </h1>
                 
             <img alt="" src={picture}></img>

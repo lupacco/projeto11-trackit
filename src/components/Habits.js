@@ -46,7 +46,7 @@ export default function Habits({userInfo}){
             }
         })
         .then(res =>{
-            console.log(res)
+            // console.log(res)
             setHabitName('')
             // setSelectedDays([])
             setOperations(operations+1)
@@ -76,7 +76,7 @@ export default function Habits({userInfo}){
             }
         })
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             setHabitsList(res.data)
         })
         .catch(err => console.log(err))
@@ -88,13 +88,13 @@ export default function Habits({userInfo}){
             <HabitsContainer>
                 <CreateHabit>
                     <p>Meus hábitos</p>
-                    <button onClick={() => setCreatingHabit(true)}>
+                    <button data-test="habit-create-btn" onClick={() => setCreatingHabit(true)}>
                         <ion-icon name="add-outline"></ion-icon>
                     </button>
                 </CreateHabit>
                 {creatingHabit && 
-                    <CreatingHabit>
-                        <input value={habitName} required onChange={e => setHabitName(e.target.value)} placeholder="nome do hábito"></input>
+                    <CreatingHabit data-test="habit-create-container">
+                        <input data-test="habit-name-input" value={habitName} required onChange={e => setHabitName(e.target.value)} placeholder="nome do hábito"></input>
                         <WeekDays 
                             isDisabled={false}
                             selectedDays={selectedDays}
@@ -103,17 +103,19 @@ export default function Habits({userInfo}){
                         />
 
                         <CancelSave>
-                            <button onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
-                            <button onClick={createHabit} className="save">Salvar</button>
+                            <button data-test="habit-create-cancel-btn" onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
+                            <button
+                            data-test="habit-create-save-btn"
+                            onClick={createHabit} className="save">Salvar</button>
                         </CancelSave>
                     </CreatingHabit>
                 }
 
                 {habitsList.length > 0 &&
                     habitsList.map(habit => (
-                        <CreatedHabit key={habit.id}>
-                            <ion-icon onClick={() => deleteHabit(habit.id)} name="trash-outline"></ion-icon>
-                            <p>{habit.name}</p>
+                        <CreatedHabit data-test="habit-container" key={habit.id}>
+                            <ion-icon data-test="habit-delete-btn" onClick={() => deleteHabit(habit.id)} name="trash-outline"></ion-icon>
+                            <p data-test="habit-name">{habit.name}</p>
                             <WeekDays weekdays={weekdays} selectedDays={transformIdToDay(habit.days)} isDisabled={true}/>
                         </CreatedHabit>
                     ))

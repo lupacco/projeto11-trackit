@@ -18,7 +18,7 @@ export default function Login({setUserInfo}){
             password: password
         })
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             setUserInfo(res.data)
             setEmail('')
             setPassword('')
@@ -31,23 +31,17 @@ export default function Login({setUserInfo}){
         })
     }
 
-    function logs(event){
-        event.preventDefault()
-        console.log(email)
-        console.log(password)
-    }
-
     return(
         <LoginScreenContainer>
             <img alt="" src={logoTrackIt}></img>
             <h1>TrackIt</h1>
 
             <form onSubmit={login}>
-                <input required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
-                <input required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
-                <button type="submit">Entrar</button>
+                <input type="email" data-test="email-input" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
+                <button data-test="login-btn" type="submit">Entrar</button>
             </form>
-            <StyledLink to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
+            <StyledLink data-test="signup-link" to="/cadastro">Não tem uma conta? Cadastre-se!</StyledLink>
         </LoginScreenContainer>
     )
 }

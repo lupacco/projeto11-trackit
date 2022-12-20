@@ -22,7 +22,6 @@ export default function Login(){
             password: password
         })
         .then(res => {
-            console.log(res)
             setEmail('')
             setPassword('')
             setName('')
@@ -33,13 +32,6 @@ export default function Login(){
         .catch(err => alert(err))
     }
 
-    function logs(event){
-        event.preventDefault()
-        console.log(email)
-        console.log(password)
-        console.log(name)
-        console.log(picture)
-    }
 
     return(
         <LoginScreenContainer>
@@ -47,13 +39,13 @@ export default function Login(){
             <h1>TrackIt</h1>
 
             <form onSubmit={signUp}>
-                <input required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
-                <input required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
-                <input required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
-                <input required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
-                <button type="submit">Cadastrar</button>
+                <input data-test="email-input" type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="email"></input>
+                <input data-test="password-input" type="password" required value={password} onChange={e => setPassword(e.target.value)} placeholder="senha"></input>
+                <input data-test="user-name-input" required value={name} onChange={e => setName(e.target.value)} placeholder="nome"></input>
+                <input data-test="user-image-input" required value={picture} onChange={e => setPicture(e.target.value)} placeholder="foto"></input>
+                <button data-test="signup-btn" type="submit">Cadastrar</button>
             </form>
-            <StyledLink to="/">Já tem uma conta? Faça login!</StyledLink>
+            <StyledLink data-test="login-link" to="/">Já tem uma conta? Faça login!</StyledLink>
         </LoginScreenContainer>
     )
 }
