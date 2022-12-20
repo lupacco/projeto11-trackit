@@ -17,9 +17,11 @@ export default function Habits({userInfo}){
     const [selectedDays, setSelectedDays] = useState([])
     
     const [habitsList, setHabitsList] = useState([])
+    const [inputsDisabled, setInputsDisabled] = useState(false)
 
     //operations released in section
     const [operations, setOperations] = useState(0)
+    
 
     function transformIdToDay(daysId){
         let daysNames = []
@@ -30,6 +32,7 @@ export default function Habits({userInfo}){
     }
 
     function createHabit(){
+        setInputsDisabled(true)
         let daysId = []
         for(let i in weekdays){
             if(selectedDays.includes(weekdays[i])){
@@ -46,13 +49,16 @@ export default function Habits({userInfo}){
             }
         })
         .then(res =>{
-            // console.log(res)
             setHabitName('')
-            // setSelectedDays([])
             setOperations(operations+1)
             setCreatingHabit(false)
+            setSelectedDays([])
+            setInputsDisabled(false)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            setInputsDisabled(false)
+        })
     }
 
     function deleteHabit(habitId){
@@ -94,7 +100,7 @@ export default function Habits({userInfo}){
                 </CreateHabit>
                 {creatingHabit && 
                     <CreatingHabit data-test="habit-create-container">
-                        <input data-test="habit-name-input" value={habitName} required onChange={e => setHabitName(e.target.value)} placeholder="nome do hábito"></input>
+                        <input disabled={inputsDisabled} data-test="habit-name-input" value={habitName} required onChange={e => setHabitName(e.target.value)} placeholder="nome do hábito"></input>
                         <WeekDays 
                             isDisabled={false}
                             selectedDays={selectedDays}
@@ -103,8 +109,12 @@ export default function Habits({userInfo}){
                         />
 
                         <CancelSave>
-                            <button data-test="habit-create-cancel-btn" onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
+                            <button 
+                            disabled={inputsDisabled}  
+                            data-test="habit-create-cancel-btn" 
+                            onClick={() => setCreatingHabit(false)} className="cancel">Cancelar</button>
                             <button
+                            disabled={inputsDisabled} 
                             data-test="habit-create-save-btn"
                             onClick={createHabit} className="save">Salvar</button>
                         </CancelSave>
