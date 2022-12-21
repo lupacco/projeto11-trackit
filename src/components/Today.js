@@ -98,7 +98,10 @@ export default function Today({userInfo}){
                     ))
                 }
             </Container>
-            <Footer/>
+            <Footer 
+            checkedHabitsNum={checkedHabits.length}
+            todaysHabitsNum={todaysHabits.length}
+            />
         </>
     )
 }

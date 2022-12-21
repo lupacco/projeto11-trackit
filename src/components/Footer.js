@@ -1,13 +1,17 @@
 import styled from "styled-components"
 import {Link} from "react-router-dom"
+import ProgressBar from "./ProgressBar"
 
-export default function Footer(){
+export default function Footer({checkedHabitsNum, todaysHabitsNum}){
     return(
         <FooterContainer data-test="menu">
             <StyledLink data-test="habit-link" to="/habitos">Hábitos</StyledLink>
             <div>
                 <StyledLink data-test="today-link" to="/hoje">
-                    <p>Hoje</p>
+                    <ProgressBar
+                        checkedHabitsNum={checkedHabitsNum}
+                        todaysHabitsNum={todaysHabitsNum}
+                    />
                 </StyledLink>
             </div>
             <StyledLink data-test="history" to="/historico">Histórico</StyledLink>
