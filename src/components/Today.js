@@ -12,6 +12,7 @@ export default function Today({userInfo}){
     const [todaysHabits, setTodaysHabits] = useState([])
     const [checkedHabits, setCheckedHabits] = useState([])
     const [operationsRealised, setOperationsRealised] = useState(0)
+    const [percentage, setPercentage] = useState(0)
 
     let day = dayjs().day()
     let dayName = weekdays[day]
@@ -74,10 +75,14 @@ export default function Today({userInfo}){
     return(
         <>
             <Header picture={userInfo.image}/>
-            <Container>
+            <Container percentage={percentage}>
                 <div>
                     <h1 data-test="today">{dayName}, {dayDate}</h1>
-                    <p data-test="today-counter">Nenhum hábito concluído ainda</p>
+                    <p data-test="today-counter">
+                        {percentage !== 0 ? (
+                            `${percentage}% dos hábitos concluídos`
+                        ):('Nenhum hábito concluído ainda')}
+                    </p>
                 </div>
                 {todaysHabits.length > 0 && 
                     todaysHabits.map(habit => (
@@ -101,6 +106,8 @@ export default function Today({userInfo}){
             <Footer 
             checkedHabitsNum={checkedHabits.length}
             todaysHabitsNum={todaysHabits.length}
+            percentage={percentage}
+            setPercentage={setPercentage}
             />
         </>
     )
@@ -124,7 +131,7 @@ const Container = styled.main`
         >p{
             text-align: left;
             font-size: 18px;
-            color: #BABABA;
+            color: ${props => props.percentage === 0 ? '#BABABA' : '#8FC549'};
         }
     }
 `

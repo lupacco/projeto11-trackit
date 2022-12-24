@@ -1,16 +1,22 @@
 import styled from "styled-components"
 import {Link} from "react-router-dom"
 import ProgressBar from "./ProgressBar"
+import { useEffect, useState } from "react"
 
-export default function Footer({checkedHabitsNum, todaysHabitsNum}){
+export default function Footer({checkedHabitsNum, todaysHabitsNum, percentage, setPercentage}){
+    
+    useEffect(() => {
+        let p = (checkedHabitsNum / todaysHabitsNum)*100
+        setPercentage(p)
+    }, [checkedHabitsNum, todaysHabitsNum])
+
     return(
         <FooterContainer data-test="menu">
             <StyledLink data-test="habit-link" to="/habitos">Hábitos</StyledLink>
             <div>
                 <StyledLink data-test="today-link" to="/hoje">
                     <ProgressBar
-                        checkedHabitsNum={checkedHabitsNum}
-                        todaysHabitsNum={todaysHabitsNum}
+                        percentage={percentage}
                     />
                 </StyledLink>
             </div>

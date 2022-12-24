@@ -4,7 +4,6 @@ import {Link, useNavigate} from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
 
-//https://pbs.twimg.com/media/EWkT3JmXQAY6onx.png
 export default function Login(){
     const navigate = useNavigate()
 
